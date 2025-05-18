@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Blogs</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1 class="logo">📝 My Blogs</h1>
+      <div class="header-buttons">
+        <button id="home-btn" class="auth-btn">🏠 Home</button>
+        <button id="logout-btn" class="auth-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="blog-container" id="my-blogs-container">
+      <!-- User blogs will be injected here -->
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("my-blogs-container");
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        alert("Please login to view your blogs.");
+        window.location.href = "/auth.html";
+        return;
+      }
+
+      // Navigation buttons
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("userId");
+        window.location.href = "/";
+      });
+
+      document.getElementById("home-btn").addEventListener("click", () => {
+        window.location.href = "/";
+      });
+
+      // Fetch user's blogs
+      fetch(`http://localhost:3000/user/blogs?userId=${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.status || !data.data?.length) {
+            container.innerHTML = "<p>No blogs posted yet.</p>";
+            return;
+          }
+
+          data.data.forEach((blog) => {
+            const card = document.createElement("div");
+            card.className = "blog-card";
+
+            const imageUrl = blog.imageUrl || "https://via.placeholder.com/400x200.png?text=No+Image";
+
+            card.innerHTML = `
+              <img src="${imageUrl}" alt="Blog Image" class="blog-image" />
+              <div class="blog-content">
+                <h3>${blog.name}</h3>
+                <p>${blog.descriptions.substring(0, 150)}...</p>
+                <p class="blog-meta">
+                  👁️ ${blog.view} &nbsp; 👍 ${blog.like} &nbsp; 👎 ${blog.dislike}
+                </p>
+              </div>
+            `;
+
+            card.addEventListener("click", () => {
+              localStorage.setItem("selectedBlogId", blog.uuid);
+              window.location.href = "/single-blog-info.html";
+            });
+
+            container.appendChild(card);
+          });
+        })
+        .catch((err) => {
+          console.error("Error loading user blogs:", err);
+          container.innerHTML = "<p>Something went wrong. Try again later.</p>";
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+/* blog-info.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #2d3436;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .auth-btn {
+    background-color: #0984e3;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .main-content {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .blog-details {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .blog-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-image {
+    width: 100%;
+    border-radius: 10px;
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-author {
+    font-style: italic;
+    color: #636e72;
+    margin-top: 0.5rem;
+  }
+  
+  .interaction-section {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .like-btn, .dislike-btn, #comment-btn {
+    background-color: #00cec9;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .like-btn:hover, .dislike-btn:hover, #comment-btn:hover {
+    background-color: #01a3a4;
+  }
+  
+  .comment-section {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+  }
+  
+  #comment-input {
+    width: 100%;
+    height: 100px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .comment-box {
+    display: flex;
+    gap: 0.8rem;
+    background: #f1f2f6;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .comment-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #74b9ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+  
+  .comment-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    color: #2d3436;
+  }
+  
+  .comment-text {
+    margin-top: 0.3rem;
+    color: #2f3542;
+  }
+  

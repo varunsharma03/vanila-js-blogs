@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Blog</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1 class="logo">📝 Daily Blogs</h1>
+      <div class="header-buttons">
+        <button id="post-blog-btn" class="auth-btn post-btn hidden">+ Post Blog</button>
+        <button id="my-blogs-btn" class="auth-btn my-blogs-btn ">My Blogs</button>
+        <button id="auth-btn" class="auth-btn">Login / Register</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="blog-container" id="blog-container">
+      <!-- Blog cards will be injected here -->
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const blogContainer = document.getElementById("blog-container");
+      const authBtn = document.getElementById("auth-btn");
+      const postBtn = document.getElementById("post-blog-btn");
+      const myBlogsBtn = document.getElementById("my-blogs-btn");
+
+      const userId = localStorage.getItem("userId");
+
+      // Auth state
+      authBtn.textContent = userId ? "Logout" : "Login / Register";
+      postBtn.classList.toggle("hidden", !userId);
+
+      authBtn.addEventListener("click", () => {
+        if (userId) {
+          localStorage.removeItem("userId");
+          location.reload();
+        } else {
+          window.location.href = "/auth.html";
+        }
+      });
+
+      postBtn.addEventListener("click", () => {
+        window.location.href = "/post-blog.html";
+      });
+
+      myBlogsBtn.addEventListener("click", () => {
+        window.location.href = "/my-blogs.html";
+      });
+
+      // Fetch blogs
+      fetch("http://localhost:3000/allBlogs")
+        .then((res) => res.json())
+        .then((data) => {
+          data?.data?.forEach((blog) => {
+            const card = document.createElement("div");
+            card.className = "blog-card";
+            const imageUrl = blog.imageUrl || "https://via.placeholder.com/400x200.png?text=No+Image";
+            card.innerHTML = `
+              <img src="${imageUrl}" alt="Blog Image" class="blog-image" />
+              <div class="blog-content">
+                <h3>${blog.name}</h3>
+                <p>${blog.descriptions.substring(0, 150)}...</p>
+                <p class="blog-author">By ${blog.user?.name || "Anonymous"}</p>
+              </div>`;
+
+            card.addEventListener("click", () => {
+              localStorage.setItem("selectedBlogId", blog.uuid);
+              window.location.href = "/single-blog-info.html";
+            });
+
+            blogContainer.appendChild(card);
+          });
+        })
+        .catch((err) => {
+          blogContainer.innerHTML = "<p>Error loading blogs. Please try again later.</p>";
+          console.error("Error fetching blogs:", err);
+        });
+    });
+  </script>
+</body>
+</html>

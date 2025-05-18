@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  uuid     String    @unique @default(uuid())
+  name     String
+  email    String    @unique
+  password String
+  isAdmin  Boolean   @default(false)
+  blogs    Blog[]
+  Comment  Comment[]
+}
+
+model Blog {
+  id           Int       @id @default(autoincrement())
+  uuid         String    @unique @default(uuid())
+  user         User      @relation(fields: [userId], references: [uuid])
+  userId       String
+  name         String
+  descriptions Json?
+  imageUrl     String?
+  view         Int
+  like         Int
+  dislike      Int
+  comment      Comment[]
+}
+
+model Comment {
+  uuid    String @unique @default(uuid())
+  blog    Blog   @relation(fields: [blogId], references: [uuid])
+  blogId  String
+  user    User   @relation(fields: [userId], references: [uuid])
+  userId  String
+  comment String
+}

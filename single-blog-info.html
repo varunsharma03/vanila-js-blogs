@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Details</title>
+  <link rel="stylesheet" href="/blog-info.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1 class="logo">📝 Blog Details</h1>
+      <button id="auth-btn" class="auth-btn">Login / Register</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="blog-details" id="blog-details">
+      <!-- Blog content will load here -->
+    </div>
+
+    <div class="interaction-section" id="interaction-section">
+      <button class="like-btn">👍 Like</button>
+      <button class="dislike-btn">👎 Dislike</button>
+    </div>
+
+    <div class="comment-section">
+      <h3>Comments</h3>
+      <div class="comments" id="comments-list"></div>
+
+      <textarea id="comment-input" placeholder="Write a comment..."></textarea>
+      <button id="comment-btn">Post Comment</button>
+    </div>
+  </main>
+
+  <script src="blog-info.js"></script>
+</body>
+</html>
