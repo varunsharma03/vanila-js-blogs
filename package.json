@@ -1,0 +1,15 @@
+{
+  "name": "vanila-js-blogs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth.js",
+  "scripts": {
+    "start": "npm run backend:setup && npm run backend:start",
+    "backend:setup": "cd ecommerce-backend && npm i && npx prisma generate && npx prisma migrate dev",
+    "backend:start": "cd ecommerce-backend && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
