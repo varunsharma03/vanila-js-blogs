@@ -54,8 +54,7 @@ app.post("/login", async (req, res) => {
         password: true,
       },
     });
-    console.log(userExist);
-    console.log(password);
+
     if (!userExist || userExist.password != password) {
       throw new Error("Invalid Credentials");
     }
@@ -141,7 +140,6 @@ app.post("/add/comment", async (req, res) => {
 app.post("/update/blog", async (req, res) => {
   try {
     const { blogId, like, dislike } = req.body;
-    console.log(blogId);
     await prisma.blog.update({
       where: { uuid: blogId },
       data: {
